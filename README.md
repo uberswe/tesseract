@@ -41,7 +41,9 @@ external authority.*
 
 ### The sync flow
 Every insert/extract becomes a tiny **batch operation** sent to the service and answered
-synchronously (≤ 500 ms):
+synchronously. We aim for a **< 5 ms** round-trip (the service holds everything in memory, so the
+work is just validation); a 500 ms hard timeout only exists as a safety net for a stalled
+connection:
 
 1. **Insert.** The mod validates locally first (item identity must match the slot, respect the
    item's real max-stack-size so enchanted books/tools can't be over-stacked, respect the global
