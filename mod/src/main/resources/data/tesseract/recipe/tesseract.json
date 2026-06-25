@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "DED",
+    "ENE",
+    "DED"
+  ],
+  "key": {
+    "D": { "item": "minecraft:diamond_block" },
+    "E": { "item": "minecraft:ender_chest" },
+    "N": { "item": "minecraft:nether_star" }
+  },
+  "result": {
+    "id": "tesseract:tesseract",
+    "count": 2
+  }
+}

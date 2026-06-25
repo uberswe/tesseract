@@ -1,0 +1,46 @@
+# Example setup: Postgres + the tesseract sync service.
+#
+#   docker compose up --build
+#
+# Then point each Minecraft server's mod at this service. With everything on one host:
+#   TESSERACT_SERVICE_HOST=127.0.0.1  TESSERACT_SERVICE_PORT=7600
+# (or edit config/tesseract-common.toml). Give each server a distinct
+# TESSERACT_SERVER_NAME so the service can tell them apart.
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: tesseract
+      POSTGRES_PASSWORD: tesseract
+      POSTGRES_DB: tesseract
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      # Schema is applied automatically on first start of an empty data dir.
+      - ./service/migrations:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U tesseract -d tesseract"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  tesseract-service:
+    build: ./service
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      TCP_PORT: "7600"
+      HEALTH_PORT: "8081"
+      DB_HOST: postgres
+      DB_PORT: "5432"
+      DB_USER: tesseract
+      DB_PASSWORD: tesseract
+      DB_NAME: tesseract
+      DB_SSLMODE: disable
+      PERSIST_INTERVAL_SECONDS: "30"
+    ports:
+      - "7600:7600"   # mod connections
+      - "8081:8081"   # health / readiness
+
+volumes:
+  pgdata:

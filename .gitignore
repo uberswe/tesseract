@@ -1,0 +1,16 @@
+# Gradle / mod build
+.gradle/
+**/build/
+mod/.gradle/
+mod/build/
+
+# Go
+service/tesseract
+service/app
+*.test
+
+# IDE / OS
+.idea/
+*.iml
+.vscode/
+.DS_Store

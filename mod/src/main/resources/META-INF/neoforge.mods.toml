@@ -1,0 +1,30 @@
+modLoader = "javafml"
+loaderVersion = "[4,)"
+license = "MIT"
+issueTrackerURL = "https://github.com/uberswe/tesseract/issues"
+
+[[mods]]
+modId = "tesseract"
+version = "1.0.0"
+displayName = "Tesseract"
+authors = "uberswe"
+description = '''
+A standalone, cross-server wireless storage block. Items inserted into a Tesseract on
+one server are available from the owner's Tesseract on any other server connected to the
+same tesseract-service. The block is automation-only (insert/extract via hoppers, Create,
+pipes, etc.); the authoritative inventory lives in the external service.
+'''
+
+[[dependencies.tesseract]]
+modId = "neoforge"
+type = "required"
+versionRange = "[21.1,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.tesseract]]
+modId = "minecraft"
+type = "required"
+versionRange = "[1.21.1,1.22)"
+ordering = "NONE"
+side = "BOTH"
