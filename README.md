@@ -11,6 +11,9 @@ shared everywhere.
 This repo is a self-contained example of the pattern: *one logical inventory, many servers, an
 external authority.*
 
+> Running in production on **[gwsmp.com](https://gwsmp.com)**, where it shares storage across the
+> network's NeoForge servers.
+
 ```
   Server A (mod)            Server B (mod)            Server C (mod)
       │  TCP 7600                │                        │
